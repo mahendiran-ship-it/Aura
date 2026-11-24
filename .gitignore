@@ -1,0 +1,32 @@
+# Secrets and local config
+.env
+*.key
+secrets*
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# AURA runtime data - personal, never commit
+data/*
+!data/README.md
+*.sqlite3
+*.db
+*.log
+
+# Models are downloaded, not committed (size/licence)
+models/*
+!models/README.md
+
+# Privacy: never commit captured media
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.wav
+!docs/**/*.png

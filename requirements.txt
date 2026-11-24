@@ -1,0 +1,7 @@
+# Core (CPU only; no PyTorch needed at runtime)
+numpy>=1.24
+opencv-python-headless>=4.8
+onnxruntime>=1.16
+pyyaml>=6.0
+requests>=2.31
+pytesseract>=0.3.10   # also needs the 'tesseract' program (apt install tesseract-ocr)

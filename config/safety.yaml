@@ -1,0 +1,50 @@
+# Safety engine tuning. Deterministic rules only; no AI model is consulted.
+# These numbers are HEURISTICS, not validated against real-world injury data.
+# Making alerts quieter reduces protection. Read docs/SAFETY.md before changing.
+
+# How dangerous is each class (0..1)? Unknown classes use "default".
+class_weights:
+  car: 1.0
+  bus: 1.0
+  truck: 1.0
+  motorcycle: 1.0
+  bicycle: 0.8
+  train: 1.0
+  person: 0.5
+  dog: 0.5
+  chair: 0.5
+  bench: 0.5
+  dining table: 0.5
+  couch: 0.5
+  default: 0.4
+
+# risk score -> alert level
+level_thresholds:
+  LOW: 0.25
+  MEDIUM: 0.5
+  HIGH: 0.8
+  CRITICAL: 1.15
+
+min_confidence: 0.5            # ignore weak detections
+min_persistence_frames: 3      # must be tracked for this many frames before alerting
+min_spoken_level: LOW          # INFO / LOW / MEDIUM / HIGH / CRITICAL
+
+# Seconds before the SAME alert may repeat (a worse alert always breaks through).
+cooldown_seconds:
+  INFO: 120
+  LOW: 20
+  MEDIUM: 10
+  HIGH: 5
+  CRITICAL: 2
+global_min_gap_seconds: 1.5    # minimum gap between any two spoken alerts (except CRITICAL)
+
+walking_zone:                  # fraction of frame width treated as "your path"
+  x_min: 0.30
+  x_max: 0.70
+
+# Real range-sensor thresholds (centimetres), used only if a sensor is connected.
+sensor_distance_cm:
+  LOW: 150
+  MEDIUM: 100
+  HIGH: 60
+  CRITICAL: 30

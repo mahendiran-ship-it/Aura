@@ -1,0 +1,4 @@
+-r requirements.txt
+pytest>=7.4
+# Only needed to EXPORT a model yourself (scripts/download_models.py --export):
+# ultralytics onnx

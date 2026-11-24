@@ -1,0 +1,56 @@
+# AURA settings. Every key is optional: anything you leave out uses a built-in default.
+# SECRETS DO NOT GO HERE. Put API keys in environment variables (see .env.example).
+
+# LOW_POWER (Raspberry Pi / old phones), BALANCED, or HIGH_PERFORMANCE.
+# The mode sets image size and how often frames are analysed.
+performance_mode: BALANCED
+
+camera:
+  # 0 = first webcam | "/path/video.mp4" | "http://<phone-ip>:8080/video" (phone running an IP-camera app)
+  source: 0
+
+vision:
+  model_path: models/yolov8n.onnx
+  confidence_threshold: 0.45
+
+memory:
+  enabled: true                 # set false to store nothing
+  database_path: data/aura_memory.sqlite3
+  retention_days: 30            # older memories are deleted automatically
+  recent_seconds: 600           # newer than 10 min => "recently observed"
+  stale_seconds: 86400          # older than 24 h  => "stale", may have moved
+
+audio:
+  tts_backend: auto             # auto | espeak | pyttsx3 | termux | console
+  rate: 170
+  volume: 1.0
+  stt_backend: keyboard         # keyboard | vosk (offline microphone; see docs/INSTALLATION.md)
+
+ai:                             # OPTIONAL conversational layer. Off by default.
+  enabled: false
+  endpoint: http://127.0.0.1:11434/v1   # local OpenAI-compatible server (Ollama, llama.cpp, LM Studio)
+  model: llama3.2:1b
+  api_key_env: AURA_LLM_API_KEY         # name of the environment variable holding the key
+  allow_cloud: false            # must be true to use a non-local endpoint
+
+ocr:
+  min_confidence: 60
+
+navigation:                     # needs internet for geocoding/routing (OpenStreetMap services)
+  location_provider: none       # none | fixed | termux
+  # fixed_lat: 0.0
+  # fixed_lon: 0.0
+
+api:                            # local HTTP API for an Android app; needs AURA_API_TOKEN to start
+  enabled: false
+  host: 127.0.0.1
+  port: 8765
+
+user:
+  emergency_contact_name: ""
+  emergency_contact_phone: ""   # read aloud on 'emergency'; AURA cannot place calls yet
+
+logging:
+  level: INFO
+  file: null
+  log_user_text: false
